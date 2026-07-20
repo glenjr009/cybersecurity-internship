@@ -6,51 +6,50 @@
 
 # Objective
 
-To understand the fundamentals of Web Application Penetration Testing (WAPT), study the OWASP Top 10 (2025), learn access control concepts, and solve a practical authorization vulnerability lab.
+To understand the fundamentals of Web Application Penetration Testing (WAPT), explore the OWASP Top 10 (2025), learn access control mechanisms, and identify common web application vulnerabilities through theory and practical labs.
 
 ---
 
 # Topics Covered
 
-- Introduction to Web Application Penetration Testing (WAPT)
+- Web Application Penetration Testing (WAPT)
 - OWASP Foundation
 - OWASP Top 10 (2025)
 - OWASP Mobile Top 10
 - A01: Broken Access Control
 - CIA Triad (Revision)
-- IDOR (Insecure Direct Object References)
+- IDOR (Insecure Direct Object Reference)
 - Privilege Escalation
-- Role-Based Access Control (RBAC)
-- Mandatory Access Control (MAC)
-- Discretionary Access Control (DAC)
+- RBAC, MAC & DAC
 - Website Security Checker
+- Gobuster (Revision)
+- Hydra (Revision)
 - Thunder Cipher Lab – **DeleteMe**
 
 ---
 
 # What is WAPT?
 
-**Web Application Penetration Testing (WAPT)** is the process of testing web applications to identify security vulnerabilities before attackers can exploit them.
+**Web Application Penetration Testing (WAPT)** is the process of identifying security vulnerabilities in web applications before attackers can exploit them.
 
-**Example:**
-Testing whether a normal user can access an admin panel without authorization.
+**Example:** Testing whether a normal user can access or modify administrator-only resources.
 
 ---
 
-# OWASP Top 10 (2025) – Short Notes
+# OWASP Top 10 (2025)
 
 | Vulnerability | Description | Example |
 |---------------|-------------|---------|
-| **A01 – Broken Access Control** | Users can access resources they shouldn't. | A normal user deletes another user's account by changing the URL. |
-| **A02 – Cryptographic Failures** | Weak or missing encryption exposes sensitive data. | Passwords stored in plain text. |
-| **A03 – Injection** | Untrusted input is executed as commands or queries. | SQL Injection bypasses login authentication. |
-| **A04 – Insecure Design** | Security wasn't considered during application design. | No rate limiting on login page allowing brute-force attacks. |
-| **A05 – Security Misconfiguration** | Unsafe default settings or incorrect configurations. | Directory listing enabled on the web server. |
-| **A06 – Vulnerable Components** | Using outdated libraries or software. | Running an application with an old Log4j version. |
-| **A07 – Identification & Authentication Failures** | Weak login or session management. | Weak passwords or session IDs that never expire. |
-| **A08 – Software & Data Integrity Failures** | Applications trust unverified updates or data. | Installing unsigned software updates. |
-| **A09 – Security Logging & Monitoring Failures** | Attacks aren't detected due to poor logging. | Multiple failed login attempts are never recorded. |
-| **A10 – Server-Side Request Forgery (SSRF)** | Server makes requests on behalf of an attacker. | Fetching internal cloud metadata through a vulnerable URL parameter. |
+| **A01 – Broken Access Control** | Users can perform actions beyond their permissions. | Accessing another user's account by changing the user ID. |
+| **A02 – Cryptographic Failures** | Sensitive data is not properly protected. | Passwords stored without encryption. |
+| **A03 – Injection** | Malicious input is executed as commands or queries. | SQL Injection bypassing login. |
+| **A04 – Insecure Design** | Security flaws caused by poor application design. | Missing rate limiting on login pages. |
+| **A05 – Security Misconfiguration** | Unsafe default or incorrect server settings. | Directory listing enabled. |
+| **A06 – Vulnerable Components** | Using outdated software or libraries. | Running an application with vulnerable dependencies. |
+| **A07 – Identification & Authentication Failures** | Weak authentication or session handling. | Weak passwords or predictable session IDs. |
+| **A08 – Software & Data Integrity Failures** | Trusting unverified software or updates. | Installing unsigned plugins. |
+| **A09 – Security Logging & Monitoring Failures** | Lack of proper logging and alerting. | Failed login attempts are not monitored. |
+| **A10 – Server-Side Request Forgery (SSRF)** | Server makes unauthorized requests on behalf of an attacker. | Accessing internal cloud metadata through the server. |
 
 ---
 
@@ -58,7 +57,7 @@ Testing whether a normal user can access an admin panel without authorization.
 
 ## IDOR (Insecure Direct Object Reference)
 
-Occurs when an application allows users to access another user's data simply by changing an identifier.
+Allows users to access another user's resources by modifying an identifier.
 
 **Example**
 
@@ -72,90 +71,102 @@ Changing it to
 /profile?id=102
 ```
 
-reveals another user's profile.
+may expose another user's information.
 
 ---
 
 ## Privilege Escalation
 
-When a user gains permissions beyond their authorized level.
+A user gains permissions beyond their intended role.
 
-**Example**
-
-A normal employee becomes an administrator by exploiting a vulnerability.
+**Example:** A standard user obtains administrator privileges.
 
 ---
 
 ## RBAC (Role-Based Access Control)
 
-Permissions are assigned based on roles.
+Permissions are assigned according to user roles.
 
 **Example**
 
 - Admin → Full Access
 - Manager → Edit
-- Employee → View Only
+- Employee → Read Only
 
 ---
 
 ## DAC (Discretionary Access Control)
 
-The owner decides who can access a resource.
+The resource owner decides who can access the resource.
 
-**Example**
-
-A Google Drive owner shares a file with selected users.
+**Example:** Sharing a Google Drive file with selected users.
 
 ---
 
 ## MAC (Mandatory Access Control)
 
-Permissions are enforced by the operating system or organization.
+Access is enforced by predefined security policies.
 
-**Example**
-
-Military documents classified as Top Secret can only be accessed by users with appropriate clearance.
+**Example:** Classified government documents accessible only to users with the required clearance.
 
 ---
 
 # CIA Triad (Revision)
 
-- **Confidentiality** → Prevent unauthorized access to data.
-- **Integrity** → Ensure data remains accurate and unaltered.
-- **Availability** → Ensure systems remain accessible when needed.
+- **Confidentiality** – Protect information from unauthorized access.
+- **Integrity** – Ensure information remains accurate and unaltered.
+- **Availability** – Ensure systems remain accessible to authorized users.
+
+---
+
+# Tool Revision
+
+## Gobuster
+
+**Gobuster** is a directory and file enumeration tool used to discover hidden resources on a web server.
+
+**Example:** Finding hidden directories such as `/admin`, `/backup`, or `/uploads` using a wordlist.
+
+---
+
+## Hydra
+
+**Hydra** is a password auditing tool used to test login credentials against various network services.
+
+**Example:** Testing SSH or FTP login credentials in an authorized penetration testing environment using a predefined wordlist.
 
 ---
 
 # Practical Activity
 
-- Studied OWASP Top 10 vulnerabilities.
-- Explored access control weaknesses.
-- Learned about website security checking tools.
-- Solved the **Thunder Cipher "DeleteMe" Lab**, which demonstrated **Broken Access Control (A01)** and **IDOR** concepts in a controlled environment.
+- Learned the OWASP Top 10 (2025) vulnerabilities.
+- Studied access control mechanisms and authorization flaws.
+- Revised Gobuster and Hydra.
+- Solved the **Thunder Cipher DeleteMe Lab**, demonstrating **Broken Access Control** and **IDOR** in a controlled environment.
 
 ---
 
 # Key Learnings
 
-- Understood the purpose of OWASP in improving web security.
-- Learned all OWASP Top 10 (2025) vulnerabilities with practical examples.
-- Understood why Broken Access Control is one of the most critical web vulnerabilities.
-- Learned the difference between RBAC, DAC, and MAC.
-- Gained practical exposure to authorization vulnerabilities through the DeleteMe lab.
+- Understood the importance of secure access control.
+- Learned the OWASP Top 10 vulnerabilities with practical examples.
+- Differentiated between RBAC, DAC, and MAC.
+- Revised the use of Gobuster for enumeration and Hydra for password auditing.
+- Applied authorization concepts through the DeleteMe lab.
 
 ---
 
 # Reflection
 
-Today's session introduced the core concepts of web application security and the OWASP Top 10. The practical examples made it easier to understand how common vulnerabilities arise in real-world applications. Solving the DeleteMe lab reinforced the importance of implementing proper authorization checks to prevent unauthorized access and privilege escalation.
+Today's session strengthened my understanding of web application security by focusing on common vulnerabilities and access control mechanisms. The practical DeleteMe lab demonstrated how Broken Access Control and IDOR can lead to unauthorized actions, while revisiting Gobuster and Hydra reinforced the importance of proper enumeration and credential testing during authorized security assessments.
 
 ---
 
 # Assignment
 
 - Revise the OWASP Top 10 (2025).
-- Practice identifying Broken Access Control and IDOR vulnerabilities using safe learning labs.
-- Explore additional OWASP Web Security Academy and Thunder Cipher exercises.
+- Practice identifying Broken Access Control and IDOR in safe lab environments.
+- Complete additional Thunder Cipher and PortSwigger Web Security Academy labs.
 
 ---
 
