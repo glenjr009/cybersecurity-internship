@@ -167,6 +167,7 @@ Today's session strengthened my understanding of web application security by foc
 - Revise the OWASP Top 10 (2025).
 - Practice identifying Broken Access Control and IDOR in safe lab environments.
 - Complete additional Thunder Cipher and PortSwigger Web Security Academy labs.
+- Solve lab on TryHackMe called LinPrivSec
 
 ---
 
