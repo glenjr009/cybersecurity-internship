@@ -125,6 +125,65 @@ Military documents classified as Top Secret can only be accessed by users with a
 - **Availability** → Ensure systems remain accessible when needed.
 
 ---
+## Gobuster (Revision)
+
+**Gobuster** is a command-line tool used to perform **directory, file, DNS, and virtual host brute-forcing**. It helps penetration testers discover hidden resources that are not directly linked on a website.
+
+### Why is Gobuster used?
+
+- Discover hidden directories and files
+- Identify backup or configuration files
+- Find virtual hosts (vhosts)
+- Assist during the enumeration phase of a penetration test
+
+### Common Modes
+
+- **Directory Enumeration** – Finds hidden directories and files.
+- **DNS Enumeration** – Discovers subdomains.
+- **Virtual Host Enumeration** – Identifies virtual hosts configured on a server.
+
+### Example Commands
+
+**Directory Enumeration**
+
+```bash
+gobuster dir -u http://example.com -w /usr/share/wordlists/dirb/common.txt
+```
+
+**DNS Enumeration**
+
+```bash
+gobuster dns -d example.com -w subdomains.txt
+```
+
+**Virtual Host Enumeration**
+
+```bash
+gobuster vhost -u http://example.com -w hosts.txt
+```
+
+### Example
+
+If a website only displays:
+
+```
+https://example.com
+```
+
+Gobuster may discover hidden paths such as:
+
+```
+/admin
+/backup
+/uploads
+/config
+```
+
+These directories may contain sensitive information if not properly secured.
+
+> **Note:** Gobuster should only be used on systems you own or have explicit authorization to test.
+
+---
 
 # Practical Activity
 
