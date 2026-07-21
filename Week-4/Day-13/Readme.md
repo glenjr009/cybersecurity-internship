@@ -1,7 +1,6 @@
 # Day 13 – Access Control & Linux Privilege Escalation (Week 4)
 
 **Date:** 21 July 2026  
-**Duration:** 6:30 PM – 8:30 PM
 
 ---
 
